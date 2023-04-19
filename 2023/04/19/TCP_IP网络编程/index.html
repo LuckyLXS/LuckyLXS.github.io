@@ -91,7 +91,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">311</span>
+            <span class="post-count">312</span>
         </span>
     </span>
 
@@ -115,7 +115,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <span id="more"></span>
+  <p>learn<br><span id="more"></span></p>
 <h1 id="创建套接字"><a href="#创建套接字" class="headerlink" title="创建套接字"></a>创建套接字</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain,<span class="keyword">int</span> type,<span class="keyword">int</span> protocol)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>成功返回文件描述符，失败返回-1。<br>_domain_————协议簇信息<br>_type_——————数据传输类型信息<br>_protocol_———-协议信息</p>
 <h1 id="地址簇"><a href="#地址簇" class="headerlink" title="地址簇"></a>地址簇</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">sa_family_t</span> sin_family;		<span class="comment">//地址簇</span></span><br><span class="line">	<span class="keyword">uint16_t</span> sin_port;		<span class="comment">//16位端口号</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>	<span class="comment">//32位IP地址</span></span><br><span class="line">	<span class="keyword">char</span> sin_zero[<span class="number">8</span>];		<span class="comment">//不用</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	In_addr_t s_addr;		<span class="comment">//32位IPv4地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
