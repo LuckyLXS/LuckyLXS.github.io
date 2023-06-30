@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>TCP/IP网络编程 |  Lucky_blog</title>
+      <title>html标签 |  Lucky_blog</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -60,7 +60,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-TCP_IP网络编程"
+  id="post-html"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -71,7 +71,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  TCP/IP网络编程
+  html标签
 </h1>
  
 
@@ -79,8 +79,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/04/19/TCP_IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="article-date">
-  <time datetime="2023-04-19T14:06:13.786Z" itemprop="datePublished">2023-04-19</time>
+      <a href="/2023/06/30/html/" class="article-date">
+  <time datetime="2023-06-30T14:08:16.655Z" itemprop="datePublished">2023-06-30</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/2023/">/2023</a>
@@ -91,7 +91,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">312</span>
+            <span class="post-count">586</span>
         </span>
     </span>
 
@@ -100,7 +100,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
@@ -115,17 +115,9 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>learn<br><span id="more"></span></p>
-<h1 id="创建套接字"><a href="#创建套接字" class="headerlink" title="创建套接字"></a>创建套接字</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain,<span class="keyword">int</span> type,<span class="keyword">int</span> protocol)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>成功返回文件描述符，失败返回-1。<br>_domain_————协议簇信息<br>_type_——————数据传输类型信息<br>_protocol_———-协议信息</p>
-<h1 id="地址簇"><a href="#地址簇" class="headerlink" title="地址簇"></a>地址簇</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">sa_family_t</span> sin_family;		<span class="comment">//地址簇</span></span><br><span class="line">	<span class="keyword">uint16_t</span> sin_port;		<span class="comment">//16位端口号</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>	<span class="comment">//32位IP地址</span></span><br><span class="line">	<span class="keyword">char</span> sin_zero[<span class="number">8</span>];		<span class="comment">//不用</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	In_addr_t s_addr;		<span class="comment">//32位IPv4地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>系统不同，在内存空间的保存方式是不同的。</p>
-<p><em>大端序</em>    <em>00000001  00000000  00000000  00000000</em><br><em>小端序</em>    <em>00000000  00000000  00000000  00000001</em></p>
-<p>为了实现不同系统之间传输数据不出错，约定传输到网络上的都是大端序，这种约定被称为<strong>网络字节序</strong>。</p>
-<p>转换字节序<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="title">htons</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">short</span>)</span></span>;		<span class="comment">//h主机，n网络，h，to，n。s，16位端口号</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="title">ntohs</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">short</span>)</span></span>;		<span class="comment">//</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">htonl</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span>)</span></span>;		<span class="comment">//h主机，n网络，h，to，n。l，32位IP地址</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">ntohl</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span>)</span></span>;		<span class="comment">//</span></span><br></pre></td></tr></table></figure><br>但是我们所熟知的IP大多以字符串形式出现，以下函数则可以将字符串转化位32位整数型<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_aton</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *string,struct in_addr *addr)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>_string_———-IP字符串信息<br>_addr_————结果保存地点的地址</p>
-<p>inet_aton将IP字符串转化为32位整型并保存在addr结构体变量中。</p>
- 
+  <p>html部分<br><span id="more"></span></p>
+<h2 id="head部"><a href="#head部" class="headerlink" title="head部"></a>head部</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">base</span> <span class="attr">hrel</span>=<span class="string">&quot;全文档基础链接&quot;</span> <span class="attr">target</span>=<span class="string">&quot;设置网页打开方式（新建或者原页刷新）&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">hrel</span>=<span class="string">&quot;链接外部样式表&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">	<span class="comment">/*可以直接添加样式来渲染 HTML 文档*/</span></span></span><br><span class="line"><span class="css">	<span class="selector-tag">body</span></span></span><br><span class="line"><span class="css">	&#123;</span></span><br><span class="line"><span class="css">	<span class="attribute">width</span>:<span class="number">20px</span>;</span></span><br><span class="line"><span class="css">	&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="body部"><a href="#body部" class="headerlink" title="body部"></a>body部</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">	...</span><br><span class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;图片地址&quot;</span>/&gt;</span><span class="comment">&lt;!--插入图片--&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>段落<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">hrel</span>=<span class="string">&quot;链接地址&quot;</span>&gt;</span>链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;图片地址&quot;</span> <span class="attr">width</span>=<span class="string">&quot;&quot;</span> <span class="attr">height</span>=<span class="string">&quot;&quot;</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">br</span>/&gt;</span>换行</span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">title</span>=<span class="string">&quot;按钮&quot;</span>&gt;</span>初始按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">hr</span>/&gt;</span><span class="comment">&lt;!--分割线--&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">ul</span>&gt;</span><span class="comment">&lt;!--无序列表--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="comment">&lt;!--定义列表项--&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">ol</span>&gt;</span><span class="comment">&lt;!--无序列表--&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="comment">&lt;!--表格的一行--&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">th</span>&gt;</span>表头单元格(列标题)<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">td</span>&gt;</span>数据单元格<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="comment">&lt;!--区块（分区）--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;后台接收数据网址&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get/post&quot;</span>&gt;</span><span class="comment">&lt;!--表单--&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">		post：指的是 HTTP POST 方法，表单数据会包含在表单体内然后发送给服务器，用于提交敏感数据，如用户名与密码等。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">get：默认值，指的是 HTTP GET 方法，表单数据会附加在 action 属性的 URL 中，并以 ?作为分隔符，一般用于不敏感信息，如分页等.</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">			HTML 表单用于收集用户的输入信息。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">HTML 表单表示文档中的一个区域，此区域包含交互控件，将用户收集到的信息发送到 Web 服务器。</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">lable</span> <span class="attr">for</span>=<span class="string">&quot;in&quot;</span>&gt;</span>这是输入框的标题<span class="comment">&lt;!--for用于绑定另外一个元素--&gt;</span><span class="tag">&lt;/<span class="name">lable</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">id</span>=<span class="string">&quot;in&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="comment">&lt;!--输入文本域（通过type确定）--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;pwd&quot;</span>&gt;</span><span class="comment">&lt;!--password是独特的密码字段--&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">			除此外还有</span></span><br><span class="line"><span class="comment">			radio----单选按钮</span></span><br><span class="line"><span class="comment">			checkbox---复选框</span></span><br><span class="line"><span class="comment">			--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮显示的字&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
       <div id="reword-out">
@@ -195,12 +187,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://example.com/2023/04/19/TCP_IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://example.com/2023/06/30/html/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">网络编程</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
 
     </footer>
   </div>
@@ -208,19 +200,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/06/30/html/" class="article-nav-link">
+      <a href="/2023/06/30/css/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            html标签
+            css
           
         </div>
       </a>
     
     
-      <a href="/2023/03/12/%E5%81%87%E6%9C%9F%E5%B0%8F%E9%A1%B9%E7%9B%AE/" class="article-nav-link">
+      <a href="/2023/04/19/TCP_IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">假期小项目-黄金矿工</div>
+        <div class="article-nav-title">TCP/IP网络编程</div>
       </a>
     
   </nav>
